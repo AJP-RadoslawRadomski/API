@@ -53,7 +53,7 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// TODO: Implement
+        /// TODO: Adds data to the excel file.
         /// </summary>
         private void AddSalesData(SalesData data)
         {
@@ -88,9 +88,14 @@ namespace API.Controllers
         /// TODO: Implement
         /// </summary>
         /// <param name="id"></param>
-        private void RemoveSalesData(int id)
+        private void RemoveSalesDataFromExcel(int id)
         {
-
+            using (var package = new ExcelPackage(new FileInfo(@"Data\sample-xlsx-file-for-testing.xlsx")))
+            {
+                var worksheet = package.Workbook.Worksheets[0];
+                worksheet.DeleteRow(id);
+                package.Save();
+            }
         }
 
         [HttpGet]
@@ -140,6 +145,18 @@ namespace API.Controllers
         public void AddSales(SalesData salesData)
         {
             AddSalesData(salesData);
+        }
+
+        [HttpDelete("RemoveSaleData")]
+        public void RemoveSaleData(int id)
+        {
+            RemoveSalesDataFromExcel(id);
+        }
+
+        [HttpGet("GetById")]
+        public SalesData? GetDataById(int id)
+        {
+            return _sales.SingleOrDefault(s => s.Id == id);
         }
     }
 }
