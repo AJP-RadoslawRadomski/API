@@ -29,6 +29,7 @@ namespace API.Controllers
                 {
                     list.Add(new SalesData
                     {
+                        Id = row,
                         Segment = worksheet.Cells[row, 1].Text,
                         Country = worksheet.Cells[row, 2].Text,
                         Product = worksheet.Cells[row, 3].Text,

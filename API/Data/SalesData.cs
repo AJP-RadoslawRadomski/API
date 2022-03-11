@@ -4,6 +4,7 @@ namespace API.Data
 {
     public class SalesData
     {
+        public int Id { get; set; }
         public string Segment { get; set; }
         public string Country { get; set; }
         public string Product { get; set; }
