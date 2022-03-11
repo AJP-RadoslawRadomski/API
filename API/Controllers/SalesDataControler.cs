@@ -23,7 +23,6 @@ namespace API.Controllers
                 var worksheet = package.Workbook.Worksheets[0];
 
                 var rows = worksheet.Dimension.End.Row;
-                var columns = worksheet.Dimension.End.Column;
 
                 for (int row = 2; row <= rows; row++)
                 {
@@ -58,7 +57,31 @@ namespace API.Controllers
         /// </summary>
         private void AddSalesData(SalesData data)
         {
+            using (var package = new ExcelPackage(new FileInfo(@"Data\sample-xlsx-file-for-testing.xlsx")))
+            {
+                var worksheet = package.Workbook.Worksheets[0];
 
+                var row = worksheet.Dimension.End.Row + 1;
+
+                worksheet.Cells[row, 1].Value = data.Segment;
+                worksheet.Cells[row, 2].Value = data.Country;
+                worksheet.Cells[row, 3].Value = data.Product;
+                worksheet.Cells[row, 4].Value = data.DiscountBand;
+                worksheet.Cells[row, 5].Value = data.UnitsSold;
+                worksheet.Cells[row, 6].Value = data.MnfPrice;
+                worksheet.Cells[row, 7].Value = data.SalePrice;
+                worksheet.Cells[row, 8].Value = data.GrossSales;
+                worksheet.Cells[row, 9].Value = data.Discount;
+                worksheet.Cells[row, 10].Value = data.Sales;
+                worksheet.Cells[row, 11].Value = data.COGS;
+                worksheet.Cells[row, 12].Value = data.Profit;
+                worksheet.Cells[row, 13].Value = data.Date;
+                worksheet.Cells[row, 14].Value = data.MonthNumber;
+                worksheet.Cells[row, 15].Value = data.MonthName;
+                worksheet.Cells[row, 16].Value = data.Year;
+
+                package.Save();
+            }
         }
 
         /// <summary>
@@ -116,7 +139,7 @@ namespace API.Controllers
         [HttpPost("AddToSales")]
         public void AddSales(SalesData salesData)
         {
-            _sales.Add(salesData);
+            AddSalesData(salesData);
         }
     }
 }
