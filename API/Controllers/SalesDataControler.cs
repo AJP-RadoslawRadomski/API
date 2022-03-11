@@ -53,7 +53,22 @@ namespace API.Controllers
             return list;
         }
 
+        /// <summary>
+        /// TODO: Implement
+        /// </summary>
+        private void AddSalesData(SalesData data)
+        {
 
+        }
+
+        /// <summary>
+        /// TODO: Implement
+        /// </summary>
+        /// <param name="id"></param>
+        private void RemoveSalesData(int id)
+        {
+
+        }
 
         [HttpGet]
         public IEnumerable<SalesData> Get()
