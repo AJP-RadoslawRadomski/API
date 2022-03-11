@@ -18,7 +18,7 @@ namespace API.Controllers
         private List<SalesData> ReadSalesData()
         {
             var list = new List<SalesData>();
-            using (var package = new ExcelPackage(new FileInfo(@"J:\sample-xlsx-file-for-testing.xlsx")))
+            using (var package = new ExcelPackage(new FileInfo(@"Data\sample-xlsx-file-for-testing.xlsx")))
             {
                 var worksheet = package.Workbook.Worksheets[0];
 
