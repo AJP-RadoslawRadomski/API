@@ -61,7 +61,7 @@ namespace API.Data
         }
 
         /// <summary>
-        /// TODO: Adds data to the excel file.
+        /// Append sales data to excel file.
         /// </summary>
         public static void AddSalesData(SalesData data)
         {
