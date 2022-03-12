@@ -7,10 +7,7 @@ namespace API.Controllers
     [ApiController]
     public class SalesDataControler : ControllerBase
     {
-        public SalesDataControler()
-        {
-
-        }
+        public SalesDataControler() { }
 
         [HttpGet]
         public IEnumerable<SalesData> Get()
@@ -41,20 +38,16 @@ namespace API.Controllers
         {
             var report = new List<Report>();
 
-            var countries = ListOfSales.Instance.SalesData.Select(s => s.Country).Distinct();
-            var segments = ListOfSales.Instance.SalesData.Select(s => s.Segment).Distinct();
+            var groups = ListOfSales.Instance.SalesData.GroupBy(s => new { s.Country, s.Segment }).OrderBy(g => g.Key.Country).ThenBy(g => g.Key.Segment);
 
-            foreach (var country in countries)
+            foreach (var group in groups)
             {
-                foreach (var segment in segments)
+                report.Add(new Report
                 {
-                    report.Add(new Report 
-                    { 
-                        Country = country, 
-                        Segment = segment, 
-                        UnitsSold = ListOfSales.Instance.SalesData.Where(s => (s.Country == country) && (s.Segment == segment)).Sum(s => s.UnitsSold) 
-                    });
-                }
+                    Country = group.Key.Country,
+                    Segment = group.Key.Segment,
+                    UnitsSold = group.Sum(s => s.UnitsSold)
+                });
             }
 
             return report;
