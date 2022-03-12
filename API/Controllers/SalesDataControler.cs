@@ -10,120 +10,120 @@ namespace API.Controllers
     public class SalesDataControler : ControllerBase
     {
         private const string DataFile = @"Data\sample-xlsx-file-for-testing.xlsx";
-        private List<SalesData> _sales = new List<SalesData>();
+        //private List<SalesData> _sales = new List<SalesData>();
         public SalesDataControler()
         {
-            _sales = ReadSalesData();
+            //_sales = ListOfSales.Instance.SalesData;
         }
 
         /// <summary>
         /// Read sales data from Excel file.
         /// </summary>
         /// <returns></returns>
-        private List<SalesData> ReadSalesData()
-        {
-            var list = new List<SalesData>();
-            using (var package = new ExcelPackage(new FileInfo(DataFile)))
-            {
-                var worksheet = package.Workbook.Worksheets[0];
+        //private List<SalesData> ReadSalesData()
+        //{
+        //    var list = new List<SalesData>();
+        //    using (var package = new ExcelPackage(new FileInfo(DataFile)))
+        //    {
+        //        var worksheet = package.Workbook.Worksheets[0];
 
-                var rows = worksheet.Dimension.End.Row;
+        //        var rows = worksheet.Dimension.End.Row;
 
-                for (int row = 2; row <= rows; row++)
-                {
-                    list.Add(new SalesData
-                    {
-                        Id = row,
-                        Segment = worksheet.Cells[row, 1].Text,
-                        Country = worksheet.Cells[row, 2].Text,
-                        Product = worksheet.Cells[row, 3].Text,
-                        DiscountBand = worksheet.Cells[row, 4].Text,
-                        UnitsSold = (double)worksheet.Cells[row, 5].Value,
-                        MnfPrice = (double)worksheet.Cells[row, 6].Value,
-                        SalePrice = (double)worksheet.Cells[row, 7].Value,
-                        GrossSales = (double)worksheet.Cells[row, 8].Value,
-                        Discount = (double)worksheet.Cells[row, 9].Value,
-                        Sales = (double)worksheet.Cells[row, 10].Value,
-                        COGS = (double)worksheet.Cells[row, 11].Value,
-                        Profit = (double)worksheet.Cells[row, 12].Value,
-                        Date = (DateTime)worksheet.Cells[row, 13].Value,
+        //        for (int row = 2; row <= rows; row++)
+        //        {
+        //            list.Add(new SalesData
+        //            {
+        //                Id = row,
+        //                Segment = worksheet.Cells[row, 1].Text,
+        //                Country = worksheet.Cells[row, 2].Text,
+        //                Product = worksheet.Cells[row, 3].Text,
+        //                DiscountBand = worksheet.Cells[row, 4].Text,
+        //                UnitsSold = (double)worksheet.Cells[row, 5].Value,
+        //                MnfPrice = (double)worksheet.Cells[row, 6].Value,
+        //                SalePrice = (double)worksheet.Cells[row, 7].Value,
+        //                GrossSales = (double)worksheet.Cells[row, 8].Value,
+        //                Discount = (double)worksheet.Cells[row, 9].Value,
+        //                Sales = (double)worksheet.Cells[row, 10].Value,
+        //                COGS = (double)worksheet.Cells[row, 11].Value,
+        //                Profit = (double)worksheet.Cells[row, 12].Value,
+        //                Date = (DateTime)worksheet.Cells[row, 13].Value,
 
-                    });
-                }
-            }
-            return list;
-        }
+        //            });
+        //        }
+        //    }
+        //    return list;
+        //}
 
-        /// <summary>
-        /// TODO: Adds data to the excel file.
-        /// </summary>
-        private void AddSalesData(SalesData data)
-        {
-            using (var package = new ExcelPackage(new FileInfo(DataFile)))
-            {
-                var worksheet = package.Workbook.Worksheets[0];
+        ///// <summary>
+        ///// TODO: Adds data to the excel file.
+        ///// </summary>
+        //private void AddSalesData(SalesData data)
+        //{
+        //    using (var package = new ExcelPackage(new FileInfo(DataFile)))
+        //    {
+        //        var worksheet = package.Workbook.Worksheets[0];
 
-                var row = worksheet.Dimension.End.Row + 1;
+        //        var row = worksheet.Dimension.End.Row + 1;
 
-                worksheet.Cells[row, 1].Value = data.Segment;
-                worksheet.Cells[row, 2].Value = data.Country;
-                worksheet.Cells[row, 3].Value = data.Product;
-                worksheet.Cells[row, 4].Value = data.DiscountBand;
-                worksheet.Cells[row, 5].Value = data.UnitsSold;
-                worksheet.Cells[row, 6].Value = data.MnfPrice;
-                worksheet.Cells[row, 7].Value = data.SalePrice;
-                worksheet.Cells[row, 8].Value = data.GrossSales;
-                worksheet.Cells[row, 9].Value = data.Discount;
-                worksheet.Cells[row, 10].Value = data.Sales;
-                worksheet.Cells[row, 11].Value = data.COGS;
-                worksheet.Cells[row, 12].Value = data.Profit;
-                worksheet.Cells[row, 13].Value = data.Date;
+        //        worksheet.Cells[row, 1].Value = data.Segment;
+        //        worksheet.Cells[row, 2].Value = data.Country;
+        //        worksheet.Cells[row, 3].Value = data.Product;
+        //        worksheet.Cells[row, 4].Value = data.DiscountBand;
+        //        worksheet.Cells[row, 5].Value = data.UnitsSold;
+        //        worksheet.Cells[row, 6].Value = data.MnfPrice;
+        //        worksheet.Cells[row, 7].Value = data.SalePrice;
+        //        worksheet.Cells[row, 8].Value = data.GrossSales;
+        //        worksheet.Cells[row, 9].Value = data.Discount;
+        //        worksheet.Cells[row, 10].Value = data.Sales;
+        //        worksheet.Cells[row, 11].Value = data.COGS;
+        //        worksheet.Cells[row, 12].Value = data.Profit;
+        //        worksheet.Cells[row, 13].Value = data.Date;
 
-                package.Save();
-            }
-        }
+        //        package.Save();
+        //    }
+        //}
 
-        /// <summary>
-        /// Removes sale data by row number.
-        /// Returns <see langword="true"/> if succesful.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        private bool RemoveSalesDataFromExcel(int id)
-        {
-            using (var package = new ExcelPackage(new FileInfo(DataFile)))
-            {
-                var worksheet = package.Workbook.Worksheets[0];
-                var endRow = worksheet.Dimension.End.Row;
-                if(endRow < id ) return false;  
-                worksheet.DeleteRow(id);
-                package.Save();
-                return true;
-            }
-        }
+        ///// <summary>
+        ///// Removes sale data by row number.
+        ///// Returns <see langword="true"/> if succesful.
+        ///// </summary>
+        ///// <param name="id"></param>
+        ///// <returns></returns>
+        //private bool RemoveSalesDataFromExcel(int id)
+        //{
+        //    using (var package = new ExcelPackage(new FileInfo(DataFile)))
+        //    {
+        //        var worksheet = package.Workbook.Worksheets[0];
+        //        var endRow = worksheet.Dimension.End.Row;
+        //        if(endRow < id ) return false;  
+        //        worksheet.DeleteRow(id);
+        //        package.Save();
+        //        return true;
+        //    }
+        //}
 
         [HttpGet]
         public IEnumerable<SalesData> Get()
         {
-            return _sales;
+            return ListOfSales.Instance.SalesData;
         }
 
         [HttpGet("Segment/")]
         public IEnumerable<SalesData> GetSegment(string segment)
         {
-            return _sales.Where(s => s.Segment.ToLower() == segment.ToLower());
+            return ListOfSales.Instance.SalesData.Where(s => s.Segment.ToLower() == segment.ToLower());
         }
 
         [HttpGet("Country/")]
         public IEnumerable<SalesData> GetCountry(string country)
         {
-            return _sales.Where(s => s.Country.ToLower() == country.ToLower());
+            return ListOfSales.Instance.SalesData.Where(s => s.Country.ToLower() == country.ToLower());
         }
 
         [HttpGet("Product/")]
         public IEnumerable<SalesData> GetProduct(string product)
         {
-            return _sales.Where(s => s.Product.ToLower() == product.ToLower());
+            return ListOfSales.Instance.SalesData.Where(s => s.Product.ToLower() == product.ToLower());
         }
 
         [HttpGet("Report/")]
@@ -131,14 +131,19 @@ namespace API.Controllers
         {
             var report = new List<Report>();
 
-            var countries = _sales.Select(s => s.Country).Distinct();
-            var segments = _sales.Select(s => s.Segment).Distinct();
+            var countries = ListOfSales.Instance.SalesData.Select(s => s.Country).Distinct();
+            var segments = ListOfSales.Instance.SalesData.Select(s => s.Segment).Distinct();
 
             foreach (var country in countries)
             {
                 foreach (var segment in segments)
                 {
-                    report.Add(new Report { Country = country, Segment = segment, UnitsSold = _sales.Where(s => (s.Country == country) && (s.Segment == segment)).Sum(s => s.UnitsSold) });
+                    report.Add(new Report 
+                    { 
+                        Country = country, 
+                        Segment = segment, 
+                        UnitsSold = ListOfSales.Instance.SalesData.Where(s => (s.Country == country) && (s.Segment == segment)).Sum(s => s.UnitsSold) 
+                    });
                 }
             }
 
@@ -148,19 +153,19 @@ namespace API.Controllers
         [HttpPost("AddToSales")]
         public void AddSales(SalesData salesData)
         {
-            AddSalesData(salesData);
+            ListOfSales.AddSalesData(salesData);
         }
 
         [HttpDelete("RemoveSaleData")]
         public bool RemoveSaleData(int id)
         {
-            return RemoveSalesDataFromExcel(id);
+            return ListOfSales.RemoveSalesDataFromExcel(id);
         }
 
         [HttpGet("GetById")]
         public SalesData? GetDataById(int id)
         {
-            return _sales.SingleOrDefault(s => s.Id == id);
+            return ListOfSales.Instance.SalesData.SingleOrDefault(s => s.Id == id);
         }
     }
 }
