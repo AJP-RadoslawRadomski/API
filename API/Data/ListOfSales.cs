@@ -4,7 +4,7 @@ namespace API.Data
 {
     public sealed class ListOfSales
     {
-        private static readonly Lazy<ListOfSales> Lazy = new Lazy<ListOfSales>(() => new ListOfSales());
+        private static readonly Lazy<ListOfSales> Lazy = new(() => new ListOfSales());
         public static ListOfSales Instance { get { return Lazy.Value; } }
         private ListOfSales() { }
         private const string DataFile = @"Data\sample-xlsx-file-for-testing.xlsx";
