@@ -9,16 +9,21 @@ namespace API.Controllers
     [ApiController]
     public class SalesDataControler : ControllerBase
     {
+        private const string DataFile = @"Data\sample-xlsx-file-for-testing.xlsx";
         private List<SalesData> _sales = new List<SalesData>();
         public SalesDataControler()
         {
             _sales = ReadSalesData();
         }
 
+        /// <summary>
+        /// Read sales data from Excel file.
+        /// </summary>
+        /// <returns></returns>
         private List<SalesData> ReadSalesData()
         {
             var list = new List<SalesData>();
-            using (var package = new ExcelPackage(new FileInfo(@"Data\sample-xlsx-file-for-testing.xlsx")))
+            using (var package = new ExcelPackage(new FileInfo(DataFile)))
             {
                 var worksheet = package.Workbook.Worksheets[0];
 
@@ -54,7 +59,7 @@ namespace API.Controllers
         /// </summary>
         private void AddSalesData(SalesData data)
         {
-            using (var package = new ExcelPackage(new FileInfo(@"Data\sample-xlsx-file-for-testing.xlsx")))
+            using (var package = new ExcelPackage(new FileInfo(DataFile)))
             {
                 var worksheet = package.Workbook.Worksheets[0];
 
@@ -86,7 +91,7 @@ namespace API.Controllers
         /// <returns></returns>
         private bool RemoveSalesDataFromExcel(int id)
         {
-            using (var package = new ExcelPackage(new FileInfo(@"Data\sample-xlsx-file-for-testing.xlsx")))
+            using (var package = new ExcelPackage(new FileInfo(DataFile)))
             {
                 var worksheet = package.Workbook.Worksheets[0];
                 var endRow = worksheet.Dimension.End.Row;
