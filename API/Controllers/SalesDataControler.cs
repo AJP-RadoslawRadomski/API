@@ -42,9 +42,6 @@ namespace API.Controllers
                         COGS = (double)worksheet.Cells[row, 11].Value,
                         Profit = (double)worksheet.Cells[row, 12].Value,
                         Date = (DateTime)worksheet.Cells[row, 13].Value,
-                        MonthNumber = int.Parse(worksheet.Cells[row, 14].Text),
-                        MonthName = worksheet.Cells[row, 15].Text,
-                        Year = int.Parse(worksheet.Cells[row, 16].Text)
 
                     });
                 }
@@ -76,9 +73,6 @@ namespace API.Controllers
                 worksheet.Cells[row, 11].Value = data.COGS;
                 worksheet.Cells[row, 12].Value = data.Profit;
                 worksheet.Cells[row, 13].Value = data.Date;
-                worksheet.Cells[row, 14].Value = data.MonthNumber;
-                worksheet.Cells[row, 15].Value = data.MonthName;
-                worksheet.Cells[row, 16].Value = data.Year;
 
                 package.Save();
             }

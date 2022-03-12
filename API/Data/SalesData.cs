@@ -1,4 +1,5 @@
 ﻿using OfficeOpenXml;
+using System.Globalization;
 
 namespace API.Data
 {
@@ -19,8 +20,12 @@ namespace API.Data
         public double Profit { get; set; }
         public DateTime Date { get; set; }
 
-        public int MonthNumber { get; set; }
-        public string MonthName { get; set; }
-        public int Year { get; set; }
+        public int MonthNumber { get => _monthNumber; }
+        public string MonthName { get => _monthName; }
+        public int Year { get => _year; }
+
+        private int _year => Date.Year;
+        private int _monthNumber => Date.Month;
+        private string _monthName => Date.ToString("MMMM", CultureInfo.InvariantCulture);
     }
 }
