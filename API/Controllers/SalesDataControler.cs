@@ -85,16 +85,21 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// TODO: Implement
+        /// Removes sale data by row number.
+        /// Returns <see langword="true"/> if succesful.
         /// </summary>
         /// <param name="id"></param>
-        private void RemoveSalesDataFromExcel(int id)
+        /// <returns></returns>
+        private bool RemoveSalesDataFromExcel(int id)
         {
             using (var package = new ExcelPackage(new FileInfo(@"Data\sample-xlsx-file-for-testing.xlsx")))
             {
                 var worksheet = package.Workbook.Worksheets[0];
+                var endRow = worksheet.Dimension.End.Row;
+                if(endRow < id ) return false;  
                 worksheet.DeleteRow(id);
                 package.Save();
+                return true;
             }
         }
 
@@ -148,9 +153,9 @@ namespace API.Controllers
         }
 
         [HttpDelete("RemoveSaleData")]
-        public void RemoveSaleData(int id)
+        public bool RemoveSaleData(int id)
         {
-            RemoveSalesDataFromExcel(id);
+            return RemoveSalesDataFromExcel(id);
         }
 
         [HttpGet("GetById")]
