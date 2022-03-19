@@ -18,19 +18,19 @@ namespace API.Controllers
         [HttpGet("Segment/")]
         public IEnumerable<SalesData> GetSegment(string segment)
         {
-            return ListOfSales.Instance.SalesData.Where(s => s.Segment.ToLower() == segment.ToLower());
+            return ListOfSales.Instance.SalesData.Where(s => string.Compare(s.Segment, segment, true) == 0);
         }
 
         [HttpGet("Country/")]
         public IEnumerable<SalesData> GetCountry(string country)
         {
-            return ListOfSales.Instance.SalesData.Where(s => s.Country.ToLower() == country.ToLower());
+            return ListOfSales.Instance.SalesData.Where(s => string.Compare(s.Country, country, true) == 0);
         }
 
         [HttpGet("Product/")]
         public IEnumerable<SalesData> GetProduct(string product)
         {
-            return ListOfSales.Instance.SalesData.Where(s => s.Product.ToLower() == product.ToLower());
+            return ListOfSales.Instance.SalesData.Where(s => string.Compare(s.Product, product, true) == 0);
         }
 
         [HttpGet("Report/")]
