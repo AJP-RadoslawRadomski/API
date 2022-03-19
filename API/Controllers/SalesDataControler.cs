@@ -107,19 +107,19 @@ namespace API.Controllers
         [HttpGet("Segment/")]
         public IEnumerable<SalesData> GetSegment(string segment)
         {
-            return _sales.Where(s => s.Segment.ToLower() == segment.ToLower());
+            return _sales.Where(s => string.Compare(s.Segment, segment, true) == 0);
         }
 
         [HttpGet("Country/")]
         public IEnumerable<SalesData> GetCountry(string country)
         {
-            return _sales.Where(s => s.Country.ToLower() == country.ToLower());
+            return _sales.Where(s => string.Compare(s.Country, country, true) == 0);
         }
 
         [HttpGet("Product/")]
         public IEnumerable<SalesData> GetProduct(string product)
         {
-            return _sales.Where(s => s.Product.ToLower() == product.ToLower());
+            return _sales.Where(s => string.Compare(s.Product, product, true) == 0);
         }
 
         [HttpGet("Report/")]
@@ -134,7 +134,11 @@ namespace API.Controllers
             {
                 foreach (var segment in segments)
                 {
-                    report.Add(new Report { Country = country, Segment = segment, UnitsSold = _sales.Where(s => (s.Country == country) && (s.Segment == segment)).Sum(s => s.UnitsSold) });
+                    report.Add(new Report
+                    {
+                        Country = country,
+                        Segment = segment,
+                        UnitsSold = _sales.Where(s => (s.Country == country) && (s.Segment == segment)).Sum(s => s.UnitsSold) });
                 }
             }
 
