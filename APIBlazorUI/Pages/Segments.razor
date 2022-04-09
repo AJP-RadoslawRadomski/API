@@ -1,0 +1,27 @@
+﻿@page "/segments"
+@using APIBlazorUI.Data
+
+@inject IHttpClientFactory ClientFactory
+
+<h3>Segments</h3>
+
+@if(_segments == null)
+{
+    <p>Pusto</p>
+}
+else
+{
+    _segments.Count();
+}
+
+@code {
+    private string _segmentUrl = "http://localhost:5282/api/SalesDataControler/Segment?segment=government";
+    private ICollection<SalesData> _segments;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = ClientFactory.CreateClient();
+        var apiClient = new Client("http://localhost:5282/api/SalesDataControler/", client);
+        _segments = await apiClient.SegmentAsync("government");
+    }
+}
